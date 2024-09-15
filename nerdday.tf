@@ -43,37 +43,6 @@ resource "ibm_is_security_group" "nerdday_security_group" {
   vpc  = ibm_is_vpc.nerdday_vpc.id
 }
 
-# Create security group rules
-resource "ibm_is_security_group_rule" "nerdday_sg_rule_80" {
-  group     = ibm_is_security_group.nerdday_security_group.id
-  direction = "inbound"
-  remote    = "0.0.0.0/0"
-  tcp {
-    port_min = 80
-    port_max = 80
-  }
-}
-
-resource "ibm_is_security_group_rule" "nerdday_sg_rule_443" {
-  group     = ibm_is_security_group.nerdday_security_group.id
-  direction = "inbound"
-  remote    = "0.0.0.0/0"
-  tcp {
-    port_min = 443
-    port_max = 443
-  }
-}
-
-resource "ibm_is_security_group_rule" "nerdday_sg_rule_8080" {
-  group     = ibm_is_security_group.nerdday_security_group.id
-  direction = "inbound"
-  remote    = "0.0.0.0/0"
-  tcp {
-    port_min = 8080
-    port_max = 8080
-  }
-}
-
 resource "ibm_is_security_group_rule" "nerdday_sg_rule_8088" {
   group     = ibm_is_security_group.nerdday_security_group.id
   direction = "inbound"
