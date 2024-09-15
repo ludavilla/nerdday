@@ -1,0 +1,37 @@
+---
+  - name: update S.O.
+    hosts: nerdday
+    remote_user: root
+    become: yes
+    become_method: sudo
+    gather_facts: false
+    ignore_errors: True
+    #ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+  
+    tasks:
+
+    - name: Instalando pacotes adicionais
+      dnf:
+        name:
+          - epel-release.noarch
+          - net-tools
+          - mlocate
+          - podman.x86_64
+          - vim
+        state: latest
+
+    - name: Atualizando o S.O.
+      yum:
+        name: '*'
+        state: latest
+
+    - name: Reiniciar o sistema
+      reboot:
+        reboot_timeout: 120
+
+    - name: Esperar o sistema voltar online
+      wait_for_connection:
+        delay: 30
+
+    - name: Criando container
+      shell: podman run -dit --name supermario --restart=always -p 8088:8080 -d docker.io/erudinsky/mario:latest
