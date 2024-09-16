@@ -14,10 +14,7 @@
       dnf:
         name:
           - epel-release.noarch
-          - net-tools
-          - mlocate
           - podman.x86_64
-          - vim
         state: latest
 
     - name: Atualizando o S.O.
